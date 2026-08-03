@@ -42,15 +42,6 @@ function Home() {
     <>
       <Hero />
 
-      <Section tight>
-        <Reveal className="mb-10 text-center">
-          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            Operating inside teams at
-          </p>
-        </Reveal>
-        <LogoRow />
-      </Section>
-
       <Section>
         <SectionHeading
           eyebrow="The difference"
