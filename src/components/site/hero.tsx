@@ -77,7 +77,7 @@ export function Hero() {
           className="mx-auto mt-20 grid max-w-4xl grid-cols-2 gap-8 border-t border-border pt-10 md:grid-cols-4"
         >
           {[
-            { icon: Bolt, v: <Counter to={41} suffix="M+" />, l: "Outcomes delivered" },
+            { icon: Bolt, v: <Counter to={5} suffix="+" />, l: "AI Employees made" },
             { icon: Target, v: <Counter to={98} suffix="%" />, l: "Resolution accuracy" },
             { icon: TimerReset, v: <Counter to={12} suffix=" days" />, l: "Average time to live" },
             { icon: TrendingUp, v: <Counter to={340} suffix="%" />, l: "Median first-year ROI" },
