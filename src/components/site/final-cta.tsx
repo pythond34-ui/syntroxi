@@ -42,10 +42,10 @@ export function FinalCta() {
                 <div className="rounded-[1.5rem] border border-white/15 bg-white/8 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur-sm">
                   <div className="rounded-[1rem] border border-white/10 bg-white/5 p-2">
                     <img
-                      src="/certificate.png"
+                      src="/certificate-optimized.jpg"
                       alt="DPIIT certificate recognizing SYNTROXI as a startup in India"
                       width={1200}
-                      height={800}
+                      height={848}
                       loading="lazy"
                       decoding="async"
                       className="mx-auto h-auto max-h-[420px] w-full rounded-[0.85rem] object-contain bg-white"

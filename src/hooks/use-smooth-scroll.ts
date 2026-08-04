@@ -1,5 +1,4 @@
 import { useLayoutEffect } from "react";
-import Lenis from "lenis";
 
 export function useSmoothScroll(pathname?: string) {
   useLayoutEffect(() => {
@@ -21,27 +20,43 @@ export function useSmoothScroll(pathname?: string) {
       window.history.scrollRestoration = "manual";
     }
 
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-    lenis.scrollTo(0, { immediate: true });
+    let cancelled = false;
+    let lenis: { raf: (time: number) => void; destroy: () => void; scrollTo: (value: number, options: { immediate: boolean }) => void } | null = null;
 
-    const reset = () => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      if (root) root.scrollTop = 0;
-    };
+    const startSmoothScroll = async () => {
+      const { default: Lenis } = await import("lenis");
+      if (cancelled) return;
 
-    reset();
-    requestAnimationFrame(reset);
+      lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      lenis.scrollTo(0, { immediate: true });
 
-    let frame = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
+      const reset = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        if (root) root.scrollTop = 0;
+      };
+
+      reset();
+      requestAnimationFrame(reset);
+
+      let frame = 0;
+      const raf = (time: number) => {
+        lenis?.raf(time);
+        frame = requestAnimationFrame(raf);
+      };
       frame = requestAnimationFrame(raf);
+
+      return () => {
+        cancelAnimationFrame(frame);
+        lenis?.destroy();
+      };
     };
-    frame = requestAnimationFrame(raf);
+
+    const teardown = startSmoothScroll();
 
     return () => {
-      cancelAnimationFrame(frame);
-      lenis.destroy();
+      cancelled = true;
+      if (typeof teardown === "function") teardown();
+      else if (lenis) lenis.destroy();
     };
   }, [pathname]);
 }

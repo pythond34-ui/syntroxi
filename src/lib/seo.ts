@@ -4,8 +4,8 @@ export const siteConfig = {
   description:
     "SYNTROXI helps businesses deploy AI Employees, workflow automation, and AI business operating systems for sales, support, finance, and operations.",
   url: "https://syntroxi.com",
-  image: "https://syntroxi.com/logo.svg",
-  imageAlt: "SYNTROXI logo",
+  image: "https://syntroxi.com/og-image.svg",
+  imageAlt: "SYNTROXI AI employee platform overview",
   themeColor: "#0b1020",
   locale: "en_US",
   twitterHandle: "@syntroxi",
@@ -25,6 +25,12 @@ export type SeoPage = {
   robots: string;
   path: string;
   type?: "website" | "article" | "product";
+  keywords?: string[];
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  author?: string;
+  category?: string;
 };
 
 const fallbackMetadata: Record<string, SeoPage> = {
@@ -149,10 +155,63 @@ export function getPageSeo(pathname: string): SeoPage {
       robots: "index, follow",
       path: normalizedPath,
       type: "product",
+      keywords: ["AI employee", "workflow automation", "AI workforce", "SYNTROXI"],
+      canonical: `${siteConfig.url}${normalizedPath}`,
+      image: `${siteConfig.url}/og-image.svg`,
+      imageAlt: "SYNTROXI AI employee overview",
+      author: "SYNTROXI",
+      category: "Business software",
     };
   }
 
-  return fallbackMetadata["/"];
+  if (normalizedPath.startsWith("/resources/")) {
+    return {
+      title: "AI Operations Resource | SYNTROXI",
+      description: "Read practical insights, playbooks, and operating guidance for AI-first business teams.",
+      robots: "index, follow",
+      path: normalizedPath,
+      type: "article",
+      keywords: ["AI operations", "AI playbook", "digital workforce", "SYNTROXI"],
+      canonical: `${siteConfig.url}${normalizedPath}`,
+      image: `${siteConfig.url}/og-image.svg`,
+      imageAlt: "SYNTROXI resource preview",
+      author: "SYNTROXI",
+      category: "AI resources",
+    };
+  }
+
+  if (normalizedPath.startsWith("/case-studies/")) {
+    return {
+      title: "Customer Success Story | SYNTROXI",
+      description: "Explore real business outcomes from AI employee deployments and connected systems transformations.",
+      robots: "index, follow",
+      path: normalizedPath,
+      type: "article",
+      keywords: ["case study", "AI automation ROI", "SYNTROXI results"],
+      canonical: `${siteConfig.url}${normalizedPath}`,
+      image: `${siteConfig.url}/og-image.svg`,
+      imageAlt: "SYNTROXI case study preview",
+      author: "SYNTROXI",
+      category: "Case study",
+    };
+  }
+
+  const baseSeo = fallbackMetadata["/"];
+  return {
+    ...baseSeo,
+    keywords: [
+      "AI workforce",
+      "AI employees",
+      "AI business operating system",
+      "workflow automation",
+      "SYNTROXI",
+    ],
+    canonical: `${siteConfig.url}${normalizedPath}`,
+    image: `${siteConfig.url}/og-image.svg`,
+    imageAlt: "SYNTROXI AI Business Operating System",
+    author: "SYNTROXI",
+    category: "Business software",
+  };
 }
 
 export function buildBreadcrumbs(pathname: string) {

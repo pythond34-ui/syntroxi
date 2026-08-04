@@ -1,0 +1,19 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="32" fill="#0A1022"/>
+  <rect x="52" y="52" width="1096" height="526" rx="28" fill="url(#paint0_linear_1_2)"/>
+  <circle cx="170" cy="142" r="94" fill="#2F7DFF" fill-opacity="0.18"/>
+  <circle cx="1000" cy="470" r="120" fill="#2F7DFF" fill-opacity="0.12"/>
+  <path d="M180 420C310 356 352 260 490 234C585 216 660 266 755 260C883 252 957 174 1034 118" stroke="#DDEBFF" stroke-opacity="0.8" stroke-width="10" stroke-linecap="round"/>
+  <rect x="120" y="120" width="176" height="52" rx="26" fill="#FFFFFF" fill-opacity="0.08"/>
+  <text x="150" y="154" fill="#DDEBFF" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">SYNTROXI</text>
+  <text x="120" y="260" fill="#F7FAFF" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700">AI Employees</text>
+  <text x="120" y="332" fill="#F7FAFF" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700">for real operations.</text>
+  <text x="120" y="438" fill="#DDEBFF" font-family="Arial, Helvetica, sans-serif" font-size="28">AI business operating system for workflow automation,</text>
+  <text x="120" y="478" fill="#DDEBFF" font-family="Arial, Helvetica, sans-serif" font-size="28">governance, and measurable outcomes.</text>
+  <defs>
+    <linearGradient id="paint0_linear_1_2" x1="52" y1="52" x2="1148" y2="578" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#121E3D"/>
+      <stop offset="1" stop-color="#0B1020"/>
+    </linearGradient>
+  </defs>
+</svg>

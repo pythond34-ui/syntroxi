@@ -5,6 +5,7 @@ import { Footer } from "./footer";
 import { SkipLink } from "./skip-link";
 import { Toaster } from "@/components/ui/sonner";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
+import LoadingPage from "@/routes/loading";
 import {
   buildBreadcrumbSchema,
   buildFaqSchema,
@@ -49,17 +50,21 @@ function SeoHead() {
 
     setMeta("description", seo.description);
     setMeta("robots", seo.robots);
+    setMeta("keywords", (seo.keywords ?? []).join(", "));
+    setMeta("author", seo.author ?? siteConfig.siteName);
     setMeta("theme-color", siteConfig.themeColor, "name");
     setMeta("twitter:card", "summary_large_image", "name");
     setMeta("twitter:title", seo.title, "name");
     setMeta("twitter:description", seo.description, "name");
-    setMeta("twitter:image", siteConfig.image, "name");
+    setMeta("twitter:image", seo.image ?? siteConfig.image, "name");
     setMeta("og:title", seo.title, "property");
     setMeta("og:description", seo.description, "property");
     setMeta("og:type", seo.type ?? "website", "property");
     setMeta("og:url", currentUrl, "property");
-    setMeta("og:image", siteConfig.image, "property");
+    setMeta("og:image", seo.image ?? siteConfig.image, "property");
     setMeta("og:site_name", siteConfig.siteName, "property");
+    setMeta("og:locale", siteConfig.locale, "property");
+    setMeta("article:publisher", siteConfig.siteName, "property");
     setLink("canonical", canonical);
     setLink("icon", "/favicon.png");
     setLink("shortcut icon", "/favicon.png");
@@ -107,7 +112,7 @@ export function AppLayout() {
       <SkipLink />
       {bare ? null : <Navbar />}
       <main id="main-content" className={bare ? "" : "min-h-screen"}>
-        <Suspense fallback={<div className="min-h-screen" aria-busy="true" /> }>
+        <Suspense fallback={<LoadingPage />}>
           <Outlet />
         </Suspense>
       </main>
