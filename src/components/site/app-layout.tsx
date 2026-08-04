@@ -7,8 +7,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 
 export function AppLayout() {
-  useSmoothScroll();
   const location = useLocation();
+  useSmoothScroll(location.pathname);
   const bare = location.pathname.startsWith("/auth");
 
   useEffect(() => {
