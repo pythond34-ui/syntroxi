@@ -66,7 +66,6 @@ export const Route = {
 };
 
 function RootComponent() {
-  useSmoothScroll();
   return (
     <>
       <Navbar />

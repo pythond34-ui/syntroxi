@@ -12,6 +12,15 @@ export function AppLayout() {
   const bare = location.pathname.startsWith("/auth");
 
   useEffect(() => {
+    const root = document.scrollingElement ?? document.documentElement;
+    root.scrollTop = 0;
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    if (window.location.hash) {
+      window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
     const titleMap: Record<string, string> = {
       "/": "AI Employees for Real Operations",
       "/about": "About SYNTROXI",
