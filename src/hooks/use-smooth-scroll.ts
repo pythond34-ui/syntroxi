@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import Lenis from "lenis";
 
 export function useSmoothScroll(pathname?: string) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
 
     const root = document.scrollingElement ?? document.documentElement;
@@ -23,10 +23,14 @@ export function useSmoothScroll(pathname?: string) {
 
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
     lenis.scrollTo(0, { immediate: true });
-    requestAnimationFrame(() => {
+
+    const reset = () => {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       if (root) root.scrollTop = 0;
-    });
+    };
+
+    reset();
+    requestAnimationFrame(reset);
 
     let frame = 0;
     const raf = (time: number) => {
@@ -38,9 +42,6 @@ export function useSmoothScroll(pathname?: string) {
     return () => {
       cancelAnimationFrame(frame);
       lenis.destroy();
-      if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "auto";
-      }
     };
   }, [pathname]);
 }

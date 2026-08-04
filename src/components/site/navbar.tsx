@@ -20,6 +20,12 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = useLocation().pathname;
 
+  const resetScroll = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    const root = document.scrollingElement ?? document.documentElement;
+    if (root) root.scrollTop = 0;
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12);
     handleScroll();
@@ -35,7 +41,12 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-18 w-[95%] max-w-[1400px] items-center justify-between px-6 md:px-10">
-        <Link to="/" className="mr-8 flex shrink-0 items-center lg:mr-10" aria-label="SYNTROXI home">
+        <Link
+          to="/"
+          onClick={resetScroll}
+          className="mr-8 flex shrink-0 items-center lg:mr-10"
+          aria-label="SYNTROXI home"
+        >
           <Logo />
         </Link>
 
@@ -44,6 +55,7 @@ export function Navbar() {
             <Link
               key={l.to}
               to={l.to}
+              onClick={resetScroll}
               className={cn(
                 "whitespace-nowrap rounded-full px-2 py-2 text-[15px] font-medium text-navy-soft transition-colors hover:text-electric",
                 pathname.startsWith(l.to) && "text-electric",
@@ -83,7 +95,10 @@ export function Navbar() {
             <Link
               key={l.to}
               to={l.to}
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                resetScroll();
+              }}
               className="rounded-xl px-3 py-3 text-sm font-medium text-navy hover:bg-secondary"
             >
               {l.label}
