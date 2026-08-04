@@ -1,19 +1,21 @@
+import { lazy } from "react";
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import { AppLayout } from "./components/site/app-layout";
-import HomePage from "./routes/index";
-import AboutPage from "./routes/about";
-import AuthPage from "./routes/auth";
-import CaseStudiesPage from "./routes/case-studies";
-import CheckoutPage from "./routes/checkout";
-import ConnectedSystemsPage from "./routes/connected-systems";
-import ContactPage from "./routes/contact";
-import DashboardPage from "./routes/dashboard";
-import IndustriesPage from "./routes/industries";
-import PricingPage from "./routes/pricing";
-import ResourcesPage from "./routes/resources";
-import WorkforceBuilderPage from "./routes/workforce-builder";
-import EmployeeListingPage from "./routes/ai-employees/index";
-import EmployeeDetailPage from "./routes/ai-employees/$slug";
+
+const HomePage = lazy(() => import("./routes/index"));
+const AboutPage = lazy(() => import("./routes/about"));
+const AuthPage = lazy(() => import("./routes/auth"));
+const CaseStudiesPage = lazy(() => import("./routes/case-studies"));
+const CheckoutPage = lazy(() => import("./routes/checkout"));
+const ConnectedSystemsPage = lazy(() => import("./routes/connected-systems"));
+const ContactPage = lazy(() => import("./routes/contact"));
+const DashboardPage = lazy(() => import("./routes/dashboard"));
+const IndustriesPage = lazy(() => import("./routes/industries"));
+const PricingPage = lazy(() => import("./routes/pricing"));
+const ResourcesPage = lazy(() => import("./routes/resources"));
+const WorkforceBuilderPage = lazy(() => import("./routes/workforce-builder"));
+const EmployeeListingPage = lazy(() => import("./routes/ai-employees/index"));
+const EmployeeDetailPage = lazy(() => import("./routes/ai-employees/$slug"));
 
 export const routes: RouteObject[] = [
   {

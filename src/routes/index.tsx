@@ -1,21 +1,47 @@
+import { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Blocks, Gauge, ShieldCheck } from "lucide-react";
-import { Hero } from "@/components/site/hero";
 import { Section, SectionHeading, Reveal, Stagger, StaggerItem } from "@/components/site/primitives";
-import { EmployeeCard } from "@/components/site/employee-card";
-import { SystemHub } from "@/components/site/system-hub";
-import { JourneyFlow } from "@/components/site/journey-flow";
-import { TeamBuilderWizard } from "@/components/site/team-builder-wizard";
-import { IndustryCards } from "@/components/site/industry-cards";
-import { WorkflowAnimation } from "@/components/site/workflow-animation";
-import { WorkforceBuilder } from "@/components/site/workforce-builder";
-import { RoiCalculator } from "@/components/site/roi-calculator";
-import { PricingCards } from "@/components/site/pricing-cards";
-import { DashboardPreview } from "@/components/site/dashboard-preview";
-import { Testimonials, LogoRow } from "@/components/site/testimonials";
-import { FinalCta } from "@/components/site/final-cta";
 import { SxButton } from "@/components/site/sx-button";
 import { caseStudies, employees } from "@/lib/site-data";
+
+const Hero = lazy(() => import("@/components/site/hero").then((mod) => ({ default: mod.Hero })));
+const EmployeeCard = lazy(() =>
+  import("@/components/site/employee-card").then((mod) => ({ default: mod.EmployeeCard })),
+);
+const SystemHub = lazy(() => import("@/components/site/system-hub").then((mod) => ({ default: mod.SystemHub })));
+const JourneyFlow = lazy(() =>
+  import("@/components/site/journey-flow").then((mod) => ({ default: mod.JourneyFlow })),
+);
+const TeamBuilderWizard = lazy(() =>
+  import("@/components/site/team-builder-wizard").then((mod) => ({ default: mod.TeamBuilderWizard })),
+);
+const IndustryCards = lazy(() =>
+  import("@/components/site/industry-cards").then((mod) => ({ default: mod.IndustryCards })),
+);
+const WorkflowAnimation = lazy(() =>
+  import("@/components/site/workflow-animation").then((mod) => ({ default: mod.WorkflowAnimation })),
+);
+const WorkforceBuilder = lazy(() =>
+  import("@/components/site/workforce-builder").then((mod) => ({ default: mod.WorkforceBuilder })),
+);
+const RoiCalculator = lazy(() =>
+  import("@/components/site/roi-calculator").then((mod) => ({ default: mod.RoiCalculator })),
+);
+const PricingCards = lazy(() =>
+  import("@/components/site/pricing-cards").then((mod) => ({ default: mod.PricingCards })),
+);
+const DashboardPreview = lazy(() =>
+  import("@/components/site/dashboard-preview").then((mod) => ({ default: mod.DashboardPreview })),
+);
+const Testimonials = lazy(() =>
+  import("@/components/site/testimonials").then((mod) => ({ default: mod.Testimonials })),
+);
+const FinalCta = lazy(() => import("@/components/site/final-cta").then((mod) => ({ default: mod.FinalCta })));
+
+function SectionContent({ children }: { children: React.ReactNode }) {
+  return <Suspense fallback={<div className="min-h-[18rem]" aria-hidden="true" />}>{children}</Suspense>;
+}
 
 const pillars = [
   {
@@ -40,7 +66,9 @@ const pillars = [
 function Home() {
   return (
     <>
-      <Hero />
+      <SectionContent>
+        <Hero />
+      </SectionContent>
 
       <Section>
         <SectionHeading
@@ -78,7 +106,9 @@ function Home() {
         <Stagger className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {employees.slice(0, 6).map((e) => (
             <StaggerItem key={e.slug}>
-              <EmployeeCard employee={e} />
+              <SectionContent>
+                <EmployeeCard employee={e} />
+              </SectionContent>
             </StaggerItem>
           ))}
         </Stagger>
@@ -92,7 +122,9 @@ function Home() {
           align="center"
           className="mb-16"
         />
-        <SystemHub />
+        <SectionContent>
+          <SystemHub />
+        </SectionContent>
       </Section>
 
       <Section className="bg-secondary/40">
@@ -103,9 +135,13 @@ function Home() {
           align="center"
           className="mb-14"
         />
-        <JourneyFlow />
+        <SectionContent>
+          <JourneyFlow />
+        </SectionContent>
         <div className="mt-16">
-          <WorkflowAnimation />
+          <SectionContent>
+            <WorkflowAnimation />
+          </SectionContent>
         </div>
       </Section>
 
@@ -117,9 +153,13 @@ function Home() {
           align="center"
           className="mb-14"
         />
-        <TeamBuilderWizard />
+        <SectionContent>
+          <TeamBuilderWizard />
+        </SectionContent>
         <div className="mt-16">
-          <WorkforceBuilder />
+          <SectionContent>
+            <WorkforceBuilder />
+          </SectionContent>
         </div>
       </Section>
 
@@ -131,7 +171,9 @@ function Home() {
           align="center"
           className="mb-14"
         />
-        <IndustryCards />
+        <SectionContent>
+          <IndustryCards />
+        </SectionContent>
       </Section>
 
       <Section className="bg-secondary/40">
@@ -141,7 +183,9 @@ function Home() {
           align="center"
           className="mb-14"
         />
-        <RoiCalculator />
+        <SectionContent>
+          <RoiCalculator />
+        </SectionContent>
       </Section>
 
       <Section>
@@ -152,7 +196,9 @@ function Home() {
           align="center"
           className="mb-14"
         />
-        <DashboardPreview />
+        <SectionContent>
+          <DashboardPreview />
+        </SectionContent>
       </Section>
 
       <Section className="bg-secondary/40">
@@ -163,7 +209,9 @@ function Home() {
           className="mb-4"
         />
         <div className="mt-12">
-          <PricingCards />
+          <SectionContent>
+            <PricingCards />
+          </SectionContent>
         </div>
       </Section>
 
@@ -198,11 +246,15 @@ function Home() {
           ))}
         </Stagger>
         <div className="mt-14">
-          <Testimonials />
+          <SectionContent>
+            <Testimonials />
+          </SectionContent>
         </div>
       </Section>
 
-      <FinalCta />
+      <SectionContent>
+        <FinalCta />
+      </SectionContent>
     </>
   );
 }

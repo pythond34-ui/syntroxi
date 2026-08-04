@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "./logo";
 import { SxButton } from "./sx-button";
 import { cn } from "@/lib/utils";
@@ -19,10 +18,14 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
   const pathname = useLocation().pathname;
 
-  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 12));
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 12);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header
@@ -69,38 +72,33 @@ export function Navbar() {
         </button>
       </div>
 
-      <AnimatePresence>
-        {open ? (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-b border-border bg-background lg:hidden"
-          >
-            <div className="flex flex-col gap-1 px-6 py-6">
-              {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  className="rounded-xl px-3 py-3 text-sm font-medium text-navy hover:bg-secondary"
-                >
-                  {l.label}
-                </Link>
-              ))}
-              <div className="mt-4 flex gap-2">
-                <SxButton to="/auth" variant="outline" size="sm" className="flex-1">
-                  Sign in
-                </SxButton>
-                <SxButton to="/contact" size="sm" className="flex-1">
-                  Book a demo
-                </SxButton>
-              </div>
-            </div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <div
+        className={cn(
+          "overflow-hidden border-b border-border bg-background transition-[max-height,opacity] duration-300 lg:hidden",
+          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0",
+        )}
+      >
+        <div className="flex flex-col gap-1 px-6 py-6">
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => setOpen(false)}
+              className="rounded-xl px-3 py-3 text-sm font-medium text-navy hover:bg-secondary"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <div className="mt-4 flex gap-2">
+            <SxButton to="/auth" variant="outline" size="sm" className="flex-1">
+              Sign in
+            </SxButton>
+            <SxButton to="/contact" size="sm" className="flex-1">
+              Book a demo
+            </SxButton>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

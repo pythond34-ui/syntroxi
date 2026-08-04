@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -48,11 +47,11 @@ export function SxButton({
 
   if (to) {
     return (
-      <motion.span whileTap={{ scale: 0.98 }} className="inline-flex">
+      <span className="inline-flex">
         <Link to={to} className={classes}>
           {children}
         </Link>
-      </motion.span>
+      </span>
     );
   }
   if (href) {
@@ -63,8 +62,8 @@ export function SxButton({
     );
   }
   return (
-    <motion.button whileTap={{ scale: 0.98 }} type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes}>
       {children}
-    </motion.button>
+    </button>
   );
 }
