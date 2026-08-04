@@ -5,7 +5,7 @@ import { Footer } from "./footer";
 import { SkipLink } from "./skip-link";
 import { Toaster } from "@/components/ui/sonner";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
-import LoadingPage from "@/routes/loading";
+import LoadingPage from "../../routes/loading";
 import {
   buildBreadcrumbSchema,
   buildFaqSchema,
